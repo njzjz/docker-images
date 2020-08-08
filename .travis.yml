@@ -1,0 +1,35 @@
+language: generic
+
+matrix:
+  include:
+    - os: linux
+      env:
+        - DOCKERIMAGE=deepmd-kit
+        - DOCKERTAG=cpu
+
+    - os: linux
+      env:
+        - DOCKERIMAGE=deepmd-kit
+        - DOCKERTAG=cuda10.1_gpu
+
+    - os: linux
+      env:
+        - DOCKERIMAGE=deepmd-kit
+        - DOCKERTAG=cuda10.0_gpu
+
+    - os: linux
+      env:
+        - DOCKERIMAGE=deepmd-kit
+        - DOCKERTAG=cuda9.2_gpu
+
+env:
+  global:
+    - VERSION=1.2.0
+    - INSTALLER_VERSION=-2
+
+install:
+    - docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION -t deepmodeling/$DOCKERIMAGE:$VERSION_$VARIANT -f $DOCKERIMAGE/Dockerfile .
+
+deploy:
+  provider: script
+  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push deepmodeling/$DOCKERIMAGE:$VERSION_$VARIANT
