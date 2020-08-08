@@ -6,25 +6,25 @@ matrix:
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cpu
-        - BASEIMAGE=ubuntu:focal
+        - BASE_IMAGE=ubuntu:focal
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cuda10.1_gpu
-        - BASEIMAGE=nvidia/cuda:10.1-runtime
+        - BASE_IMAGE=nvidia/cuda:10.1-runtime
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cuda10.0_gpu
-        - BASEIMAGE=nvidia/cuda:10.0-runtime
+        - BASE_IMAGE=nvidia/cuda:10.0-runtime
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cuda9.2_gpu
-        - BASEIMAGE=nvidia/cuda:9.2-runtime
+        - BASE_IMAGE=nvidia/cuda:9.2-runtime
 
 env:
   global:
