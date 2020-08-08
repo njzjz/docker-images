@@ -6,21 +6,25 @@ matrix:
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cpu
+        - BASEIMAGE=ubuntu:focal
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cuda10.1_gpu
+        - BASEIMAGE=nvidia/cuda:10.1-runtime
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cuda10.0_gpu
+        - BASEIMAGE=nvidia/cuda:10.0-runtime
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
         - VARIANT=cuda9.2_gpu
+        - BASEIMAGE=nvidia/cuda:9.2-runtime
 
 env:
   global:
@@ -28,7 +32,7 @@ env:
     - INSTALLER_VERSION=-2
 
 install:
-    - docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION -t deepmodeling/$DOCKERIMAGE:${VERSION}_${VARIANT} -f $DOCKERIMAGE/Dockerfile .
+    - docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION --build-arg BASE_IMAGE=$BASE_IMAGE -t deepmodeling/$DOCKERIMAGE:${VERSION}_${VARIANT} -f $DOCKERIMAGE/Dockerfile .
 
 deploy:
   provider: script

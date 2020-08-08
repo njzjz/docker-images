@@ -1,4 +1,5 @@
-FROM ubuntu:focal
+ARG BASE_IMAGE=ubuntu:focal
+FROM $BASE_IMAGE
 
 ARG DOCKERTAG
 ARG VERSION
