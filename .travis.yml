@@ -28,8 +28,8 @@ env:
     - INSTALLER_VERSION=-2
 
 install:
-    - docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION -t deepmodeling/$DOCKERIMAGE:$VERSION_$VARIANT -f $DOCKERIMAGE/Dockerfile .
+    - docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION -t deepmodeling/$DOCKERIMAGE:${VERSION}_${VARIANT} -f $DOCKERIMAGE/Dockerfile .
 
 deploy:
   provider: script
-  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push deepmodeling/$DOCKERIMAGE:$VERSION_$VARIANT
+  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push deepmodeling/$DOCKERIMAGE:${VERSION}_${VARIANT}
