@@ -5,22 +5,22 @@ matrix:
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
-        - DOCKERTAG=cpu
+        - VARIANT=cpu
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
-        - DOCKERTAG=cuda10.1_gpu
+        - VARIANT=cuda10.1_gpu
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
-        - DOCKERTAG=cuda10.0_gpu
+        - VARIANT=cuda10.0_gpu
 
     - os: linux
       env:
         - DOCKERIMAGE=deepmd-kit
-        - DOCKERTAG=cuda9.2_gpu
+        - VARIANT=cuda9.2_gpu
 
 env:
   global:
