@@ -24,7 +24,7 @@ RUN wget --no-hsts --quiet https://github.com/krallin/tini/releases/download/${T
 # 1. Install deepmd-kit from GitHub releases
 # 2. Apply some cleanup tips from https://jcrist.github.io/conda-docker-tips.html
 #    Particularly, we remove pyc and a files. The default install has no js, we can skip that
-RUN wget --no-hsts --quiet https://github.com/deepmd-kit-recipes/installer/releases/download/${VERSION}${INSTALLER_VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh && \
+RUN wget --no-hsts --quiet https://github.com/deepmd-kit-recipes/installer/releases/download/v${VERSION}${INSTALLER_VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh && \
     /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
     rm /tmp/installer.sh && \
     conda clean -tipsy && \
