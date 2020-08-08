@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=ubuntu:focal
 FROM $BASE_IMAGE
 
-ARG DOCKERTAG
+ARG VARIANT
 ARG VERSION
 ARG INSTALLER_VERSION
 ARG TINI_VERSION=v0.18.0
@@ -28,7 +28,6 @@ RUN wget --no-hsts --quiet https://github.com/krallin/tini/releases/download/${T
 RUN wget --no-hsts --quiet https://github.com/deepmd-kit-recipes/installer/releases/download/v${VERSION}${INSTALLER_VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh && \
     /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
     rm /tmp/installer.sh && \
-    conda clean -tipsy && \
     find ${DEEPMD_DIR} -follow -type f -name '*.a' -delete && \
     find ${DEEPMD_DIR} -follow -type f -name '*.pyc' -delete && \
     conda clean -afy
