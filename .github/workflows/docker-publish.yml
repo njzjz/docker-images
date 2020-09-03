@@ -1,0 +1,94 @@
+name: Docker
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: deepmd-kit
+  VERSION: 1.2.0
+  INSTALLER_VERSION: -2
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - VARIANT: cpu
+            BASE_IMAGE: ubuntu:focal
+          - VARIANT: cuda10.1_gpu
+            BASE_IMAGE: nvidia/cuda:10.1-base
+          - VARIANT: cuda10.0_gpu
+            BASE_IMAGE: nvidia/cuda:10.0-base
+          - VARIANT: cuda9.2_gpu
+            BASE_IMAGE: nvidia/cuda:9.2-base
+    env: 
+      VARIANT: ${{ matrix.VARIANT }}
+      BASE_IMAGE: ${{ matrix.BASE_IMAGE }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: |
+          docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION --build-arg BASE_IMAGE=$BASE_IMAGE --file $IMAGE_NAME/Dockerfile .
+
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  push:
+    # Ensure test job passes before pushing image.
+    needs: test
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    strategy:
+      matrix:
+        include:
+          - VARIANT: cpu
+            BASE_IMAGE: ubuntu:focal
+          - VARIANT: cuda10.1_gpu
+            BASE_IMAGE: nvidia/cuda:10.1-base
+          - VARIANT: cuda10.0_gpu
+            BASE_IMAGE: nvidia/cuda:10.0-base
+          - VARIANT: cuda9.2_gpu
+            BASE_IMAGE: nvidia/cuda:9.2-base
+    env: 
+      VARIANT: ${{ matrix.VARIANT }}
+      BASE_IMAGE: ${{ matrix.BASE_IMAGE }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg INSTALLER_VERSION=$INSTALLER_VERSION --build-arg BASE_IMAGE=$BASE_IMAGE --file $IMAGE_NAME/Dockerfile -t $IMAGE_NAME .
+
+      - name: Log into GitHub Container Registry
+      # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Push image to GitHub Container Registry
+        run: |
+          IMAGE_ID=ghcr.io/deepmodeling/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=${VERSION}_${VARIANT}
+
+          docker tag $IMAGE_NAME $IMAGE_ID:${VERSION}_${VARIANT}
+          docker push $IMAGE_ID:${VERSION}_${VARIANT}
