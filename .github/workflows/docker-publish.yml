@@ -91,4 +91,4 @@ jobs:
           echo VERSION=${VERSION}_${VARIANT}
 
           docker tag $IMAGE_NAME $IMAGE_ID:${VERSION}_${VARIANT}
-          docker push $IMAGE_ID:${VERSION}_${VARIANT}
+          docker push ${IMAGE_ID}:${VERSION}_${VARIANT}
