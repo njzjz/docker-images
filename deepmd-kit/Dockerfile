@@ -1,6 +1,13 @@
 ARG BASE_IMAGE=ubuntu:focal
 FROM $BASE_IMAGE
 
+LABEL maintainer="Jinzhe Zeng <jinzhe.zeng@rutgers.edu>" \
+      org.opencontainers.image.authors="Jinzhe Zeng <jinzhe.zeng@rutgers.edu>" \
+      org.opencontainers.image.url="https://github.com/deepmodeling/deepmd-kit" \
+      org.opencontainers.image.documentation="https://github.com/deepmodeling/deepmd-kit" \
+      org.opencontainers.image.vendor="deepmodeling" \
+      org.opencontainers.image.description="You can use `dp -h` or `lmp -h` to see the help."
+
 ARG VARIANT
 ARG VERSION
 ARG INSTALLER_VERSION
