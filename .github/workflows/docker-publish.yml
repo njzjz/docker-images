@@ -16,8 +16,8 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: deepmd-kit
-  VERSION: 1.2.0
-  INSTALLER_VERSION: -2
+  VERSION: 1.2.2
+  INSTALLER_VERSION: 
 
 jobs:
   # Run tests.
@@ -82,3 +82,9 @@ jobs:
 
       - name: Push image to GitHub Container Registry
         run: docker push ghcr.io/deepmodeling/${IMAGE_NAME}:${VERSION}_${VARIANT}
+
+      - name: Log into Dockerhub
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ github.TOKEN_USERNAME }} --password-stdin
+
+      - name: Push image to Dockerhub
+        run: docker push deepmodeling/${IMAGE_NAME}:${VERSION}_${VARIANT}
