@@ -84,7 +84,7 @@ jobs:
         run: docker push ghcr.io/deepmodeling/${IMAGE_NAME}:${VERSION}_${VARIANT}
 
       - name: Log into Dockerhub
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ github.DOCKER_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Push image to Dockerhub
         run: docker push deepmodeling/${IMAGE_NAME}:${VERSION}_${VARIANT}
