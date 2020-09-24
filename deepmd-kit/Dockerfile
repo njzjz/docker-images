@@ -6,7 +6,8 @@ LABEL maintainer="Jinzhe Zeng <jinzhe.zeng@rutgers.edu>" \
       org.opencontainers.image.url="https://github.com/deepmodeling/deepmd-kit" \
       org.opencontainers.image.documentation="https://github.com/deepmodeling/deepmd-kit" \
       org.opencontainers.image.vendor="deepmodeling" \
-      org.opencontainers.image.description="You can use `dp -h` or `lmp -h` to see the help."
+      org.opencontainers.image.description="You can use `dp -h` or `lmp -h` to see the help." \
+      org.opencontainers.image.source="https://github.com/deepmodeling/deepmd-kit"
 
 ARG VARIANT
 ARG VERSION
