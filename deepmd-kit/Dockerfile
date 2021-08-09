@@ -11,8 +11,7 @@ LABEL maintainer="Jinzhe Zeng <jinzhe.zeng@rutgers.edu>" \
 
 ARG VARIANT
 ARG VERSION
-ARG INSTALLER_VERSION
-ARG TINI_VERSION=v0.18.0
+ARG TINI_VERSION=v0.19.0
 
 ENV DEEPMD_DIR=/opt/deepmd-kit
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -33,9 +32,13 @@ RUN wget --no-hsts --quiet https://github.com/krallin/tini/releases/download/${T
 # 1. Install deepmd-kit from GitHub releases
 # 2. Apply some cleanup tips from https://jcrist.github.io/conda-docker-tips.html
 #    Particularly, we remove pyc and a files. The default install has no js, we can skip that
-RUN wget --no-hsts --quiet https://github.com/deepmd-kit-recipes/installer/releases/download/v${VERSION}${INSTALLER_VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh && \
+RUN if [[ ${VARIANT} != "cuda11.3_gpu" ]] ; then \
+      wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh ; else \
+      wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.0 -O /tmp/installer.sh.0 && \
+      wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.1 -O /tmp/installer.sh.1 && \
+	  cat /tmp/installer.sh.0 /tmp/installer.sh.1 > /tmp/installer.sh ; fi && \
     /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
-    rm /tmp/installer.sh && \
+    rm /tmp/installer.sh* && \
     find ${DEEPMD_DIR} -follow -type f -name '*.a' -delete && \
     find ${DEEPMD_DIR} -follow -type f -name '*.pyc' -delete && \
     conda clean -afy
