@@ -29,9 +29,9 @@ jobs:
           - VARIANT: cpu
             BASE_IMAGE: ubuntu:focal
           - VARIANT: cuda10.1_gpu
-            BASE_IMAGE: nvidia/cuda:10.1-base
+            BASE_IMAGE: nvidia/cuda:10.1-base-ubuntu18.04
           - VARIANT: cuda11.3_gpu
-            BASE_IMAGE: nvidia/cuda:11.3-base
+            BASE_IMAGE: nvidia/cuda:11.3.1-base-ubuntu20.04
     env: 
       VARIANT: ${{ matrix.VARIANT }}
       BASE_IMAGE: ${{ matrix.BASE_IMAGE }}
