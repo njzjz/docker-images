@@ -41,7 +41,7 @@ jobs:
 
       - name: Run tests
         run: |
-          docker build --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg BASE_IMAGE=$BASE_IMAGE --file $IMAGE_NAME/Dockerfile .
+          docker build -t --build-arg VARIANT=$VARIANT --build-arg VERSION=$VERSION --build-arg BASE_IMAGE=$BASE_IMAGE --file $IMAGE_NAME/Dockerfile -t ghcr.io/deepmodeling/${IMAGE_NAME}:${VERSION}_${VARIANT} -t deepmodeling/${IMAGE_NAME}:${VERSION}_${VARIANT} .
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
