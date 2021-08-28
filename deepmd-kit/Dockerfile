@@ -46,7 +46,7 @@ RUN if [ "${VARIANT}" != "cuda11.3_gpu" ] ; then \
     ${DEEPMD_DIR}/bin/dp --version && \
     ${DEEPMD_DIR}/bin/lmp -h && \
     find ${DEEPMD_DIR} -follow -type f -name '*.a' -delete && \
-    find ${DEEPMD_DIR} -follow -type f -name '*.pyc' -delete && \
+    find ${DEEPMD_DIR} -follow -type f -name '*.pyc' -delete
 
 # Activate base by default when running as any *non-root* user as well
 # Good security practice requires running most workloads as non-root
