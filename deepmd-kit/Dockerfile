@@ -52,11 +52,11 @@ RUN if [ "${VARIANT}" != "cuda11.6_gpu" ] ; then \
 # Good security practice requires running most workloads as non-root
 # This makes sure any non-root users created also have base activated
 # for their interactive shells.
-RUN echo "export PATH=${DEEPMD_DIR}/bin:$PATH" >> /etc/skel/.bashrc
+RUN echo ". ${DEEPMD_DIR}/etc/profile.d/conda.sh" >> /etc/skel/.bashrc
 
 # Activate base by default when running as root as well
 # The root user is already created, so won't pick up changes to /etc/skel
-RUN echo "export PATH=${DEEPMD_DIR}/bin:$PATH" >> ~/.bashrc
+RUN echo ". ${DEEPMD_DIR}/etc/profile.d/conda.sh" >> ~/.bashrc
 
 ENTRYPOINT ["tini", "--"]
 CMD [ "/bin/bash" ]
