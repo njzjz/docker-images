@@ -16,6 +16,7 @@ ARG TINI_VERSION=v0.19.0
 ENV DEEPMD_DIR=/opt/deepmd-kit
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=${DEEPMD_DIR}/bin:${PATH}
+ENV LAMMPS_PLUGIN_PATH=${DEEPMD_DIR}/lib/deepmd_lmp
 
 # Install just enough for conda to work
 RUN apt-get update > /dev/null && \
