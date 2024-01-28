@@ -45,7 +45,6 @@ RUN if [ "${VARIANT}" = "cpu" ] ; then \
     rm -rf ${DEEPMD_DIR}/share && \
     rm -rf ${DEEPMD_DIR}/include && \
     ${DEEPMD_DIR}/bin/dp --version && \
-    ${DEEPMD_DIR}/bin/lmp -h && \
     find ${DEEPMD_DIR} -follow -type f -name '*.a' -delete && \
     find ${DEEPMD_DIR} -follow -type f -name '*.pyc' -delete
 
