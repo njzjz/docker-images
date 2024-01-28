@@ -34,7 +34,7 @@ RUN wget --no-hsts --quiet https://github.com/krallin/tini/releases/download/${T
 # 2. Apply some cleanup tips from https://jcrist.github.io/conda-docker-tips.html
 #    Particularly, we remove pyc and a files. The default install has no js, we can skip that
 # remove pkgs and include and ensure it works
-RUN if [ "${VARIANT}" == "cpu" ] ; then \
+RUN if [ "${VARIANT}" = "cpu" ] ; then \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh ; else \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.0 -O /tmp/installer.sh.0 && \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.1 -O /tmp/installer.sh.1 && \
