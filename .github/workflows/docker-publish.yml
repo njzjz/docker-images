@@ -28,9 +28,9 @@ jobs:
         include:
           - VARIANT: cpu
             BASE_IMAGE: ubuntu:jammy
-          - VARIANT: cuda11.8_gpu
+          - VARIANT: cuda118
             BASE_IMAGE: ubuntu:jammy
-          - VARIANT: cuda12.0_gpu
+          - VARIANT: cuda120
             BASE_IMAGE: ubuntu:jammy
           
     env: 
