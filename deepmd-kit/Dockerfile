@@ -39,7 +39,7 @@ RUN if [ "${VARIANT}" = "cpu" ] ; then \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.0 -O /tmp/installer.sh.0 && \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.1 -O /tmp/installer.sh.1 && \
 	  cat /tmp/installer.sh.0 /tmp/installer.sh.1 > /tmp/installer.sh && rm /tmp/installer.sh.0 /tmp/installer.sh.1 ; fi && \
-    CONDA_OVERRIDE_CUDA=12.2 /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
+    CONDA_OVERRIDE_CUDA=12.3 /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
     rm /tmp/installer.sh* && \
     rm -rf ${DEEPMD_DIR}/pkgs && \
     rm -rf ${DEEPMD_DIR}/share && \
