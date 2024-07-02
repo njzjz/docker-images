@@ -4,7 +4,7 @@ on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
-      - master
+      - r2
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -16,7 +16,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: deepmd-kit
-  VERSION: 2.2.9
+  VERSION: 2.2.10
 
 jobs:
   # Run tests.
