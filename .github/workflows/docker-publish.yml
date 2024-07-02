@@ -4,7 +4,7 @@ on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
-      - master
+      - r2
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -16,7 +16,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: deepmd-kit
-  VERSION: 2.2.9
+  VERSION: 2.2.10
 
 jobs:
   # Run tests.
@@ -30,7 +30,7 @@ jobs:
             BASE_IMAGE: ubuntu:jammy
           - VARIANT: cuda118
             BASE_IMAGE: ubuntu:jammy
-          - VARIANT: cuda120
+          - VARIANT: cuda124
             BASE_IMAGE: ubuntu:jammy
           
     env: 
@@ -38,6 +38,8 @@ jobs:
       BASE_IMAGE: ${{ matrix.BASE_IMAGE }}
 
     steps:
+      - name: Delete huge unnecessary tools folder
+        run: rm -rf /opt/hostedtoolcache
       - uses: actions/checkout@v2
 
       - name: Run tests
