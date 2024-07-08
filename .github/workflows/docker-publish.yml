@@ -38,6 +38,8 @@ jobs:
       BASE_IMAGE: ${{ matrix.BASE_IMAGE }}
 
     steps:
+      - name: Delete huge unnecessary tools folder
+        run: rm -rf /opt/hostedtoolcache
       - uses: actions/checkout@v2
 
       - name: Run tests
