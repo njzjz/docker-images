@@ -30,7 +30,7 @@ jobs:
             BASE_IMAGE: ubuntu:jammy
           - VARIANT: cuda118
             BASE_IMAGE: ubuntu:jammy
-          - VARIANT: cuda124
+          - VARIANT: cuda126
             BASE_IMAGE: ubuntu:jammy
           
     env: 
