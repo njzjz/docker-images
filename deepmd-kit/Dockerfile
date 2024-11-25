@@ -41,12 +41,9 @@ RUN if [ "${VARIANT}" = "cpu" ] ; then \
 	  cat /tmp/installer.sh.0 /tmp/installer.sh.1 > /tmp/installer.sh && rm /tmp/installer.sh.0 /tmp/installer.sh.1 ; fi && \
     CONDA_OVERRIDE_CUDA=12.3 /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
     rm /tmp/installer.sh* && \
-    rm -rf ${DEEPMD_DIR}/pkgs && \
-    rm -rf ${DEEPMD_DIR}/share && \
-    rm -rf ${DEEPMD_DIR}/include && \
-    ${DEEPMD_DIR}/bin/dp --version && \
-    find ${DEEPMD_DIR} -follow -type f -name '*.a' -delete && \
-    find ${DEEPMD_DIR} -follow -type f -name '*.pyc' -delete
+    . ${DEEPMD_DIR}/etc/profile.d/conda.sh && conda activate && \
+    conda clean -a && \
+    dp --version
 
 # Activate base by default when running as any *non-root* user as well
 # Good security practice requires running most workloads as non-root
