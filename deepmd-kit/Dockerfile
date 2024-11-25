@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=ubuntu:focal
+ARG BASE_IMAGE=almalinux:8
 FROM $BASE_IMAGE
 
 LABEL maintainer="Jinzhe Zeng <jinzhe.zeng@rutgers.edu>" \
