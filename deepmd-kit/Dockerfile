@@ -38,8 +38,9 @@ RUN if [ "${VARIANT}" = "cpu" ] ; then \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh -O /tmp/installer.sh ; else \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.0 -O /tmp/installer.sh.0 && \
       wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.1 -O /tmp/installer.sh.1 && \
-	  cat /tmp/installer.sh.0 /tmp/installer.sh.1 > /tmp/installer.sh && rm /tmp/installer.sh.0 /tmp/installer.sh.1 ; fi && \
-    CONDA_OVERRIDE_CUDA=12.3 /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
+      wget --no-hsts --quiet https://github.com/deepmodeling/deepmd-kit/releases/download/v${VERSION}/deepmd-kit-${VERSION}-${VARIANT}-Linux-x86_64.sh.2 -O /tmp/installer.sh.2 && \
+	  cat /tmp/installer.sh.0 /tmp/installer.sh.1 /tmp/installer.sh.2 > /tmp/installer.sh && rm /tmp/installer.sh.0 /tmp/installer.sh.1 ; fi && \
+    CONDA_OVERRIDE_CUDA=12.8 /bin/bash /tmp/installer.sh -b -p ${DEEPMD_DIR} && \
     rm /tmp/installer.sh* && \
     . ${DEEPMD_DIR}/etc/profile.d/conda.sh && conda activate && \
     conda clean -a && \

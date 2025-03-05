@@ -16,7 +16,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: deepmd-kit
-  VERSION: 3.0.0
+  VERSION: 3.0.2
 
 jobs:
   # Run tests.
@@ -28,7 +28,7 @@ jobs:
         include:
           - VARIANT: cpu
             BASE_IMAGE: ubuntu:jammy
-          - VARIANT: cuda126
+          - VARIANT: cuda128
             BASE_IMAGE: ubuntu:jammy
           
     env: 
